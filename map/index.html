@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Dati Cultura - Italy</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+
+</head>
+<body>
+<h1>I dati della cultura in Italia</h1>
+<hr>
+<h4>Gli uffici della cultura</h4>
+<div id="map" style="width: 600px; height: 400px;"></div>
+
+<script>
+
+	const map = L.map('map').setView([41.80, 12.49], 5);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+const regioni = [
+	{ latlong: [41.80, 12.49], msg: "Lazio: 12 uffici", radius: 70000},
+	{ latlong: [45.06, 7.66], msg: "Piemonte: 2 uffici", radius: 20000},
+	{ latlong: [45.44, 9.19], msg: "Lombardia: 1 ufficio", radius: 10000},
+	{ latlong: [43.09, 12.39], msg: "Umbria: 1 ufficio", radius: 10000},
+	{ latlong: [45.44, 12.23], msg: "Veneto: 3 uffici", radius: 30000},
+	{ latlong: [39.89, 9.08], msg: "Sardegna: 2 uffici", radius: 20000},
+	{ latlong: [37.58, 14.24], msg: "Sicilia: 2 uffici", radius: 20000},
+	{ latlong: [42.74, 11.04], msg: "Toscana: 5 uffici", radius: 50000},
+	{ latlong: [40.91, 14.31], msg: "Campania: 8 uffici", radius: 60000},
+];
+
+for (const regione of regioni) {
+	const circle = L.circle(regione.latlong, {
+		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5,
+		radius: regione.radius,
+	}).addTo(map).bindPopup(regione.msg);
+}
+</script>
+
+
+
+</body>
+</html>
